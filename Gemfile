@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
+#gem 'bcrypt-ruby'
+#gem 'bcrypt',               '3.1.7'
 #gem 'bootstrap-sass',       '3.2.0.0'
 
 # Bundle edge Rails instead:
@@ -8,7 +10,7 @@ gem 'rails', '3.2.11'
 
 gem 'sqlite3'
 
-em 'therubyracer', :require => 'v8'
+gem 'therubyracer', :require => 'v8'
 
 
 # Gems used only for assets and not required
