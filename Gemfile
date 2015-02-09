@@ -45,3 +45,7 @@ gem 'jquery_datepicker'
 # gem 'debugger'
 
 #gem 'minitest-reporters', '1.0.5'
+
+#group :development, :test do
+#  gem 'byebug',      '3.4.0'
+#end
