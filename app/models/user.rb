@@ -1,5 +1,6 @@
 require 'digest'
 class User < ActiveRecord::Base
+  attr_accessor :remember_token
   #before_save { self.email = email.downcase }
   before_save { email.downcase! }
   attr_accessible :email, :name, :password, :password_confirmation
@@ -27,6 +28,22 @@ class User < ActiveRecord::Base
     return user if user.has_password?(submitted_password)
   end
 
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+  end
+
+  # Remembers a user in the database for use in persistent sessions.
+  def remember
+    self.remember_token = User.new_token
+    #update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+ # Forgets a user.
+  #def forget
+  #  update_attribute(:remember_digest, nil)
+  #end
+
   private
 
     def encrypt_password
@@ -46,7 +63,6 @@ class User < ActiveRecord::Base
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
     end
-
 
 #  has_secure_password
 #  validates :password, length: { minimum: 6 }

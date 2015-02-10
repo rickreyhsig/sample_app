@@ -171,8 +171,9 @@ input {
 }
 
 .col-md-6.col-md-offset-3{
-padding-right: 150px;
-padding-left: 150px;
+/*padding-right: 80px;
+padding-left: 80px;
+*/
 }
 
 #error_explanation {
@@ -189,3 +190,18 @@ padding-left: 150px;
     color: red;
   }
 }
+
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
