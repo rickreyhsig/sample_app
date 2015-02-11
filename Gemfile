@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
+#gem 'faker', '1.4.2'
 #gem 'bcrypt-ruby'
 #gem 'bcrypt',               '3.1.7'
 #gem 'bootstrap-sass',       '3.2.0.0'

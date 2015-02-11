@@ -1,6 +1,7 @@
 require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :remember_token
+  attr_accessor :password
   #before_save { self.email = email.downcase }
   before_save { email.downcase! }
   attr_accessible :email, :name, :password, :password_confirmation
@@ -9,6 +10,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+
 
   #validates :password, :confirmation => true
   #Automatically create the virtual attribute 'password_confirmation'.
