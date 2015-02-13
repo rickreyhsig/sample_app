@@ -1,5 +1,6 @@
 require 'digest'
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
   attr_accessor :remember_token
   attr_accessor :password
   #before_save { self.email = email.downcase }
