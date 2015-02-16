@@ -1,24 +1,21 @@
-<!--<%= @user.name %>, <%= @user.email %>
--->
-
-<% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
+<table class="profile" summary="Profile information">
+  <tr>
+    <td class="main">
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
-    </section>
-  </aside>
-  <div class="col-md-8">
-    <% unless @user.microposts.empty? %>
-      <!--<h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-      </ol> -->
-      <table class = "microposts" summary="User microposts">
-
-      </table>
-    <% end %>
-  </div>
-</div>
+    </td>
+      <% unless @user.microposts.empty? %>
+        <table class="microposts" summary="User microposts">
+                      <%= render @microposts %>
+        </table>
+      <% end %>
+    </td>
+    <td class="sidebar round">
+      <strong>Name</strong> <%= @user.name %><br />
+      <strong>URL</strong> <%= link_to user_path(@user), @user %><br />
+      <strong>Microposts</strong> <%= @user.microposts.count %>
+    </td>
+  </tr>
+</table>

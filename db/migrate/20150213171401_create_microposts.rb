@@ -1,11 +1,15 @@
 class CreateMicroposts < ActiveRecord::Migration
-  def change
+  def self.up
     create_table :microposts do |t|
-      t.text :content
-      t.references :user, index: true
+      t.string :content
+      t.integer :user_id
 
-      t.timestamps null: false
+      t.timestamps
     end
     add_index :microposts, [:user_id, :created_at]
+  end
+
+  def self.down
+    drop_table :microposts
   end
 end

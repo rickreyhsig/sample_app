@@ -1,6 +1,12 @@
 class StaticPagesController < ApplicationController
+
   def home
-      @micropost = current_user.microposts.build if logged_in?
+   @title = "Home"
+   if signed_in?
+      @micropost = Micropost.new
+      #@feed_items = current_user.feed(:page => params[:page])
+      @feed_items = current_user.feed
+    end
   end
 
   def help

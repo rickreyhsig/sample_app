@@ -11,10 +11,10 @@ SampleApp::Application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
+
   resources :users
-
-
-  resources :microposts,          only: [:create, :destroy]
+  resources :sessions,   :only => [:new, :create, :destroy]
+  resources :microposts, :only => [:create, :destroy]
 
 
   # The priority is based upon order of creation:

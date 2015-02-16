@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
+    has_many :microposts, :dependent => :destroy
 
 
   #validates :password, :confirmation => true
@@ -41,6 +42,11 @@ class User < ActiveRecord::Base
   def remember
     self.remember_token = User.new_token
     #update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  def feed
+    # This is preliminary. See Chapter 12 for the full implementation.
+    Micropost.where("user_id = ?", id)
   end
 
  # Forgets a user.
