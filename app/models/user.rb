@@ -13,6 +13,15 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
 
     has_many :microposts, :dependent => :destroy
+    has_many :relationships, :foreign_key => "follower_id",
+                           :dependent => :destroy
+
+    has_many :following, :through => :relationships, :source => :followed
+
+    has_many :reverse_relationships, :foreign_key => "followed_id",
+                                   :class_name => "Relationship",
+                                   :dependent => :destroy
+    has_many :followers, :through => :reverse_relationships, :source => :follower
 
 
   #validates :password, :confirmation => true
@@ -38,15 +47,31 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+
+  def unfollow!(followed)
+    relationships.find_by_followed_id(followed).destroy
+  end
+
   # Remembers a user in the database for use in persistent sessions.
   def remember
     self.remember_token = User.new_token
     #update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  def feed
+  #def feed
     # This is preliminary. See Chapter 12 for the full implementation.
-    Micropost.where("user_id = ?", id)
+  #  Micropost.where("user_id = ?", id)
+  #end
+
+  def feed
+    Micropost.from_users_followed_by(self)
   end
 
  # Forgets a user.
